@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Start</title>
+</head>
+<body style="background: silver">
+<h2>This application will help you buy tickets online :)</h2>
+<h3>Log in and start choose direction ;)</h3>
+
+<br>
+<hr>
+<br>
+<table>
+    <tr>
+        <td><a th:href="@{/login}">Sign in</a></td>
+    </tr>
+    <tr>
+        <td><a th:href="@{/ActionUser/create_new_user}">Create an account</a></td>
+    </tr>
+    <tr>
+        <td><a th:href="@{/logout}">Sign out</a></td>
+    </tr>
+</table>
+<br>
+<hr>
+</body>
+</html>

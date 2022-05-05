@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Show all tickets</title>
+    <style>
+    div{
+    background: coral;
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+    }
+    </style>
+</head>
+<body>
+<h3>Show all tickets</h3>
+<br>
+<div><strong>Hello Admin </strong><ins th:text="${NameUser}"></ins></div>
+<hr>
+<br>
+<br>
+<div style="background: antiquewhite">Tickets search by bus flights.</div>
+<form th:action="@{/admin/search/by_busflight}" th:object="${ListBusFlights}" method="post">
+    <select id="this_busFlight" name="this_busFlight">
+        <option th:each="busFlight:${ListBusFlights}"
+                th:value="${busFlight.id}"
+                th:text="${busFlight.myShow()}">Option</option>
+    </select>
+    <input type="submit" value="SEARCH">
+</form>
+<br>
+<div style="background: antiquewhite">Tickets search by users.</div>
+<form th:action="@{/admin/search/by_user}" th:object="${ListUsers}" method="post">
+    <select id="this_user" name="this_user">
+        <option th:each="thisUser:${ListUsers}"
+                th:value="${thisUser.Username}"
+                th:text="${thisUser.Username}">Option</option>
+    </select>
+    <input type="submit" value="SEARCH">
+</form>
+<br>
+<div style="background: antiquewhite">List all tickets:</div>
+<table border ="1">
+    <tr style = "background: silver">
+        <td>id ticket</td>
+        <td>Date</td>
+        <td>Bus Flight</td>
+        <td>Passenger</td>
+        <td>User</td>
+        <td>This ticket</td>
+    </tr>
+    <tr th:each="passenger:${AllPassengers}">
+        <td th:text="${passenger.ticket.id}"></td>
+        <td th:text="${passenger.ticket.busFlight.changeThisDateInString}"></td>
+        <td th:text="${passenger.ticket.busFlight.finishCity}"></td>
+        <td th:text="${passenger.ticket.passenger.lastname}"></td>
+        <td th:text="${passenger.ticket.user.Username}"></td>
+        <td><a th:href="@{/admin/show/ticket/{id}(id=${passenger.ticket.getId()})}" th:text="${ThisTicket}"></a></td>
+    </tr>
+</table>
+<br>
+<hr>
+<br>
+<a href="/menu">Возврат в меню приложения.</a>
+<br>
+<a href="/logout">Разлогинивание</a>
+</body>
+</html>

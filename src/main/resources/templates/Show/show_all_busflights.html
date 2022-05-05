@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Show all bus flights</title>
+</head>
+<body>
+<h3>Show all bus flights</h3>
+<br>
+<hr>
+<div style = "background: coral"><strong>Hello User </strong><ins th:text="${NameUser}"></ins> :)</div>
+<br>
+<table border = "1">
+    <tr style="background: silver">
+        <td>id bus flight</td>
+        <td>Finish city</td>
+        <td>Time departure</td>
+        <td>Amount seats</td>
+        <td>Free seats</td>
+        <td>Show this bus flight</td>
+    </tr>
+    <tr th:each="busFlight:${AllBusFlights}">
+        <td th:text="${busFlight.id}"></td>
+        <td th:text="${busFlight.finishCity}"></td>
+        <td th:text="${busFlight.changeThisDateInString}"></td>
+        <td th:text="${busFlight.seats}"></td>
+<!--        поле заполню потом - пока не готово получение свободных мест-->
+        <td th:text="${busFlight.seats}"></td>
+        <td><a th:href="@{/show/{id}(id=${busFlight.getId()})}" th:text="${ThisBusFlights}"></a></td>
+    </tr>
+</table>
+    <br>
+    <hr>
+    <br>
+    <a href="/menu">Возврат в меню приложения.</a>
+    <br>
+    <a href="/logout">Разлогинивание</a>
+</body>
+</html>

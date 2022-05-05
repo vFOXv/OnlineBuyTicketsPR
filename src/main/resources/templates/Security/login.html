@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body style="background: silver">
+<h3>Login page</h3>
+<form th:action="@{/login}" method="post">
+    <table>
+        <tr>
+            <td>User Name</td>
+            <td><label> <input type="text" name="username"/></label></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><label><input type="password" name="password"/></label></td>
+        </tr>
+    </table>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <br>
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+<br>
+<hr>
+<br>
+<a th:href="@{/menu}">Return to menu</a>
+</body>
+</html>

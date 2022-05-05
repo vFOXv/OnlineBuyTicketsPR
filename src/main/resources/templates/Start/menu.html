@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+</head>
+<body>
+<h1>MENU</h1>
+<br>
+<hr>
+<br>
+<table>
+    <tr><td><a href="/show/allBusFlights">Расписание рейсов на неделю</a></td></tr>
+    <tr><td th:if = "${flag}"><a href="/admin/menu">Вход в админ часть</a></td></tr>
+</table>
+<br>
+<hr>
+<br>
+<a href="/logout">Разлогинивание</a>
+</body>
+</html>

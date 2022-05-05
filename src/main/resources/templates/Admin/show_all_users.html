@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Show All Users</title>
+    <style>
+        div {
+            background: coral;
+            display: inline-block;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<h3>All Users</h3>
+<br>
+<div><strong>Hello User </strong>
+    <ins th:text="${NameUser}"></ins>
+    :)
+</div>
+<hr>
+<table border="1">
+    <tr style="background: silver">
+        <td>id</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Role</td>
+        <td>Active</td>
+        <td>This User</td>
+    </tr>
+    <tr th:each="user:${AllUsers}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <table>
+                <tr th:each="role:${user.roles}">
+                    <td th:text="${role.name}"></td>
+                </tr>
+            </table>
+        </td>
+        <td th:text="${user.active}"></td>
+        <td><a th:href="@{/admin/show/user/{username}(username=${user.getUsername()})}" th:text="${ThisUser}"></a></td>
+    </tr>
+</table>
+<br>
+<hr>
+<br>
+<a href="/menu">Возврат в меню приложения.</a>
+<br>
+<a href="/logout">Разлогинивание</a>
+</body>
+</html>

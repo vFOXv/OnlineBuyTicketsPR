@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Tickets By User</title>
+    <style>
+        div{
+            background: aquamarine;
+            display: inline-block;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<h3>Search Tickets By User</h3>
+<br>
+<hr>
+<div><h3 th:text="${ThisUser}"></h3></div>
+<br>
+<table border="1">
+    <tr style="background: silver">
+        <td>id ticket</td>
+        <td>Passenger</td>
+        <td>User</td>
+    </tr>
+    <tr th:each="ticket:${AllTicketsByUser}">
+        <td th:text="${ticket.id}"></td>
+        <td th:text="${ticket.passenger.lastname}"></td>
+        <td th:text="${ticket.user.Username}"></td>
+    </tr>
+</table>
+<br>
+<hr>
+<br>
+<a href="/menu">Возврат в меню приложения.</a>
+<br>
+<a href="/logout">Разлогинивание</a>
+</body>
+</html>

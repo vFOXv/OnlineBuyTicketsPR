@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>This User</title>
+    <style>
+        div {
+            background: coral;
+            display: inline-block;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<h2>This User</h2>
+<br>
+<div><strong>Hello Admin </strong><ins th:text="${NameUser}"></ins></div>
+<hr>
+<br>
+<form th:action="@{/admin/action/ban/{username}(username=${ThisUser.getUsername()})}" th:object="${ThisUser}" method="post">
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td th:text="${ThisUser.id}"></td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td th:text="${ThisUser.username}"></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td th:text="${ThisUser.email}"></td>
+    </tr>
+    <tr>
+        <td>Role</td>
+        <td>
+            <table>
+                <tr th:each="role:${ThisUser.roles}">
+                    <td th:text="${role.name}"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+<!--        checkbox для включения и отключения пользователя(поле active)-->
+        <td>Active</td>
+        <td><input type="checkbox" th:field="*{active}" th:value="ThisUser.active"/>
+    </tr>
+</table>
+    <br>
+    <input type="submit" value="BAN/TURN ON">
+</form>
+<br>
+<hr>
+<br>
+<a href="/menu">Возврат в меню приложения.</a>
+<br>
+<a href="/logout">Разлогинивание</a>
+</body>
+</html>

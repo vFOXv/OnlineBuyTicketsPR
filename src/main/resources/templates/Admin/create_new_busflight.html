@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Bus Flight</title>
+    <style>
+        div {
+            background: coral;
+            display: inline-block;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<h3>Create New Bus Flight</h3>
+<br>
+<div><strong>Hello Admin </strong>
+    <ins th:text="${NameUser}"></ins>
+</div>
+<hr>
+<br>
+<br>
+<form method="post" th:action="@{/admin/action/newBusFlight}" th:object="${NewBusFlight}">
+    <table>
+        <tr>
+            <td>Finish city:</td>
+            <td><input type="text" th:field="*{finishCity}" th:value="*{finishCity}"/></td>
+        </tr>
+        <tr>
+            <td>Date start:</td>
+                <!--        format: yyyy-MM-dd HH:mm -->
+            <td><input type="datetime-local" th:field="*{flightDeparture}" th:value="*{flightDeparture}"/></td>
+        </tr>
+        <tr>
+            <td>Amount seats:</td>
+            <td><input type="number" th:field="*{seats}" th:value="*{seats}"/></td>
+        </tr>
+    </table>
+    <br>
+    <input type="submit" value="ADD NOTE"/>
+    <br>
+    <br>
+    <input type="reset" value="Clean"/>
+</form>
+
+<br>
+<hr>
+<br>
+<a href="/menu">Возврат в меню приложения.</a>
+<br>
+<a href="/logout">Разлогинивание</a>
+</body>
+</html>
