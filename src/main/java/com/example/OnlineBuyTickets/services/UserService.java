@@ -1,5 +1,6 @@
 package com.example.OnlineBuyTickets.services;
 
+import com.example.OnlineBuyTickets.controllers.UserPackage.UserSecurityController;
 import com.example.OnlineBuyTickets.models.Role;
 import com.example.OnlineBuyTickets.models.User;
 import com.example.OnlineBuyTickets.repositories.UserRepository;
@@ -9,9 +10,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,4 +66,24 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    //сохранение нового user, c проверкой перед сохранением - на его наличя в DB
+    public boolean saveNewUser(User user){
+        //получение из DB user с таким именем
+        User userFromDB = userRepository.findByUsername(user.getUsername());
+        //проверка - если user усть в DB - не записываем
+        if (userFromDB != null) {
+            return false;
+        }
+        //инициализация поля Role(Collections имеет одно значение - User)
+        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        //инициализация поля active (true - пользователь активен)
+        user.setActive(true);
+        //кодировка пароля BCryptPasswordEncoder
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return true;
+    }
+
+    //
 }

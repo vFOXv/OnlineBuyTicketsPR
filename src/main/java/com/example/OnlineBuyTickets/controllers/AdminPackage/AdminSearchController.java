@@ -37,7 +37,9 @@ public class AdminSearchController {
     @PostMapping("/by_user")
     public String searchTicketsByUser(@RequestParam("this_user") String Username, Model model){
         model.addAttribute("ThisUser","Name user: " + userService.findByUserName(Username).getUsername());
+        //список билетов по user
         model.addAttribute("AllTicketsByUser", ticketService.searchTicketsByUser(Username));
+        //System.out.println(ticketService.searchTicketsByUser(Username));
         return "Admin/search_tickets_by_user";
     }
 }

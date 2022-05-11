@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.text.ParseException;
 
 @Controller
 @RequestMapping("/admin/action")
@@ -27,12 +28,12 @@ public class AdminActionController {
 
     //удаление билета по id (если пассажир сдал билет)
     @DeleteMapping("/deleteThisTicket/{id}")
-    public String deleteThisTicketById(@PathVariable("id") Long id, Model model){
+    public String deleteThisTicketById(@PathVariable("id") Long id){
         ticketService.deleteTicket(id);
         return "redirect:/admin/show/allTickets";
     }
 
-    //бан и включение user по полю active
+    //присваивание значения полю active(бан и включение user по полю active)
     @PostMapping("/ban/{username}")
     //@PathVariable - получение username из URL(для индификации user)
     // @ModelAttribute - получение объекта User из HTML, с одним заполненым полем - active(checkbox передает только 1 параметр)
@@ -55,10 +56,23 @@ public class AdminActionController {
     }
 
     //передача с HTML данных о новом рейсе и запись его в DB
+    //@ModelAttribute не могу использовать - поле flightDeparture приходит String, необходима Date
     @PostMapping("/newBusFlight")
-    public String createNewBusFlightToDb(@DateTimeFormat(pattern = "yyyy-MM-dd  HH: mm") @ModelAttribute("NewBusFlight") BusFlight busFlight){
+    public String createNewBusFlightToDb(@RequestParam(value = "finishCity", required = false) String finishCity,
+                                         @RequestParam(value = "flightDeparture", required = false) String flightDeparture,
+                                         @RequestParam(value = "seats", required = false) Integer seats,
+                                         Model model){
+        BusFlight busFlight = new BusFlight();
+        busFlight.setFinishCity(finishCity);
+        //распарсить String в Date и инициализация поля flightDeparture
+        try {
+            busFlight.setFlightDepartureStringT(flightDeparture);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        busFlight.setSeats(seats);
         busFlightService.saveNewBusFlight(busFlight);
-        return "redirect:show/allBusFlights";
+        return "redirect:/show/allBusFlights";
     }
 
 }

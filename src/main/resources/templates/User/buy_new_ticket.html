@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            background: coral;
+            display: inline-block;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<h3>Buy New Ticket</h3>
+<br>
+<div><strong>Hello User </strong>
+    <ins th:text="${NameUser}"></ins>
+</div>
+<hr>
+<br>
+<br>
+
+<form method="post" th:action="@{/user/action/newTicket}" th:object="${NewPassenger}">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+    <table>
+        <tr>
+            <td>Bus Flight:</td>
+            <td th:text="${NewPassenger.ticket.busFlight.myShow}"></td>
+        </tr>
+        <tr>
+<!--            невидимое поле которое пердает в контролле id рейса-->
+            <td style="display: none"><input type="number" th:name="idBusFlight"
+                                             th:value="${NewPassenger.ticket.busFlight.id}"/></td>
+        </tr>
+        <tr>
+            <td>Free places</td>
+            <td><select id="place" name="place">
+                <option th:each="place:${freePlaces}"
+                        th:value="${place}"
+                        th:text="${place}">Option
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td>Passenger's name</td>
+            <td><input type="text" th:field="*{name}" th:value="*{name}"/></td>
+        </tr>
+        <tr>
+            <td>Passenger's lastname</td>
+            <td><input type="text" th:field="*{lastname}" th:value="*{lastname}"/></td>
+        </tr>
+    </table>
+    <br>
+    <input type="submit" value="BUY TICKET"/>
+    <br>
+    <br>
+    <input type="reset" value="Clean"/>
+</form>
+
+<br>
+<hr>
+<br>
+<a href="/menu">Возврат в меню приложения.</a>
+<br>
+<a href="/logout">Разлогинивание</a>
+</body>
+</html>

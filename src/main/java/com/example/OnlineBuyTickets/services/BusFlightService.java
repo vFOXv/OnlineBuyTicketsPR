@@ -11,6 +11,9 @@ public class BusFlightService {
 
     private final BusFlightRepository busFlightRepository;
 
+
+
+
     public BusFlightService(BusFlightRepository busFlightRepository) {
         this.busFlightRepository = busFlightRepository;
     }
@@ -30,5 +33,10 @@ public class BusFlightService {
     //сохранение нового рейса в DB
     public void saveNewBusFlight(BusFlight busFlight){
         busFlightRepository.save(busFlight);
+    }
+
+    //получение рейса по id
+    public BusFlight getBusFlightById(Long id){
+        return busFlightRepository.findBusFlightById(id);
     }
 }

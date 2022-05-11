@@ -34,7 +34,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 //включение авторизации
                     .authorizeRequests()
                     //antMatchers() указывает к каким конкретно ресурсам(всех пускают в корень и страница регистрации)
-                    .antMatchers("/","/security/registration").permitAll()
+                    .antMatchers("/","/security/registration","/security/newUser", "/security/create/newUser").permitAll()
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     //все остальные запросы(показ остальных страниц) требуют авторизации
                     .anyRequest().authenticated()

@@ -39,11 +39,12 @@ CREATE TABLE `new_online_ticket_db`.`bus_flights` (
                                                       `finish_city` VARCHAR(45) NOT NULL,
                                                       `flight_departure` DATETIME NOT NULL,
                                                       `seats` INT NOT NULL,
+                                                      `free_seats` INT(11) NULL,
                                                       PRIMARY KEY (`id`));
 
-INSERT INTO `new_online_ticket_db`.`bus_flights` (`finis_city`, `flight_departure`, `seats`) VALUES ('Kyiv', '2022-04-25 10:20:00', '30');
-INSERT INTO `new_online_ticket_db`.`bus_flights` (`finis_city`, `flight_departure`, `seats`) VALUES ('Lviv', '2022-04-26 11:10:00', '20');
-INSERT INTO `new_online_ticket_db`.`bus_flights` (`finis_city`, `flight_departure`, `seats`) VALUES ('Odessa', '2022-04-27 09:00:00', '20');
+INSERT INTO `new_online_ticket_db`.`bus_flights` (`finis_city`, `flight_departure`, `seats`, `free_seats`) VALUES ('Kyiv', '2022-04-25 10:20:00', '30', '27');
+INSERT INTO `new_online_ticket_db`.`bus_flights` (`finis_city`, `flight_departure`, `seats`, `free_seats`) VALUES ('Lviv', '2022-04-26 11:10:00', '20', '17');
+INSERT INTO `new_online_ticket_db`.`bus_flights` (`finis_city`, `flight_departure`, `seats`, `free_seats`) VALUES ('Odessa', '2022-04-27 09:00:00', '20', '19');
 
 CREATE TABLE `new_online_ticket_db`.`tickets` (
                                                   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,

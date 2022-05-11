@@ -28,7 +28,6 @@ public class Ticket {
     //данные о билетах храняться в таблице пассажиров
     //mappedBy="ticket" --> имя поля в классе Passenger по которому происходит мапинг
     @OneToOne (mappedBy="ticket", cascade=CascadeType.MERGE)
-    //@JoinColumn (name="passenger_id")
     private Passenger passenger;
 
     @ManyToOne(fetch = FetchType.EAGER)

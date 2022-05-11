@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -21,24 +22,36 @@ public class BusFlight {
     private Long id;
 
     //Город назначения
-    @Column(name="finish_city")
+    @Column(name = "finish_city")
     private String finishCity;
 
     //Время и дата отправления со станции
-    @DateTimeFormat(style="yyyy.MM.dd HH:mm")
-    @Column(name="flight_departure")
+    @DateTimeFormat(style = "yyyy.MM.dd HH:mm")
+    @Column(name = "flight_departure")
     private Date flightDeparture;
 
     //количество мест в автобусе
     private Integer seats;
 
+    //количество свободных мест в атобусе
+    private Integer freeSeats;
+
+    //метод позволяющий из строки(получаемой из HTML (создание/изменение объекта))
+    //распарсить в Date (yyyy-MM-dd'T'HH:mm)       'T' - удаляеться
+    public void setFlightDepartureStringT(String text) throws ParseException {
+        //yyyy-MM-dd HH:mm ----> количество пробелов между символами ВАЖНО!!!
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String textDate = text.substring(0, 10)+" "+ text.substring(11);
+        this.flightDeparture = format.parse(textDate);
+    }
+
     //Set билетов(не объявляем) мапиться в Ticket
     //Set<Ticket> tickets;
 
     //метод позволяющий преобразовывать BusFlight в select(HTML) в читабильный вид
-    public String myShow(){
+    public String myShow() {
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm");
-        String myView = formatForDateNow.format(getFlightDeparture())+" - to "+getFinishCity();
+        String myView = formatForDateNow.format(getFlightDeparture()) + " - to " + getFinishCity();
         return myView;
     }
 
