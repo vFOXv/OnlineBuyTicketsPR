@@ -19,26 +19,31 @@
     <ins th:text="${NameUser}"></ins>
 </div>
 <hr>
+<h3 style="color:red"><strong>Enter text in the form in English only!!!</strong></h3>
 <br>
 <br>
-<form method="post" th:action="@{/admin/action/newBusFlight}" th:object="${NewBusFlight}">
+<form method="post" th:action="@{/admin/action/newBusFlightDB}" th:object="${NewBusFlight}">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
     <table>
         <tr>
             <td>Finish city:</td>
             <td><input type="text" th:field="*{finishCity}" th:value="*{finishCity}"/></td>
+            <td th:if="${finishCityError}" style="color:red">The field must not be empty!!!</td>
         </tr>
         <tr>
             <td>Date start:</td>
                 <!--        format: yyyy-MM-dd HH:mm -->
             <td><input type="datetime-local" th:field="*{flightDeparture}" th:value="*{flightDeparture}"/></td>
+            <td th:if="${flightDepartureError}" style="color:red">The field must not be empty!!!</td>
         </tr>
         <tr>
             <td>Amount seats:</td>
             <td><input type="number" th:field="*{seats}" th:value="*{seats}"/></td>
+            <td th:if="${seatsError}" style="color:red">The field must not be empty and number of seats must be greater than 0!!!</td>
         </tr>
     </table>
     <br>
-    <input type="submit" value="ADD NOTE"/>
+    <input type="submit" value="ADD New BusFlight"/>
     <br>
     <br>
     <input type="reset" value="Clean"/>
@@ -47,7 +52,7 @@
 <br>
 <hr>
 <br>
-<a href="/menu">Возврат в меню приложения.</a>
+<a href="/admin/menu">Возврат в админменю приложения</a>
 <br>
 <a href="/logout">Разлогинивание</a>
 </body>

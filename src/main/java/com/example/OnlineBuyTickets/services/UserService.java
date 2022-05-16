@@ -85,5 +85,15 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    //
+    //проверка нового user на совпадения с именем других юзеров в базе
+    public boolean checkNewUsername(User user){
+        //получение из DB user с таким именем
+        User userFromDB = userRepository.findByUsername(user.getUsername());
+        //проверка - если user усть в DB - не записываем
+        if (userFromDB != null) {
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

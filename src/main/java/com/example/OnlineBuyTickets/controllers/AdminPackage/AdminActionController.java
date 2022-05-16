@@ -57,11 +57,41 @@ public class AdminActionController {
 
     //передача с HTML данных о новом рейсе и запись его в DB
     //@ModelAttribute не могу использовать - поле flightDeparture приходит String, необходима Date
-    @PostMapping("/newBusFlight")
+    @PostMapping("/newBusFlightDB")
     public String createNewBusFlightToDb(@RequestParam(value = "finishCity", required = false) String finishCity,
                                          @RequestParam(value = "flightDeparture", required = false) String flightDeparture,
                                          @RequestParam(value = "seats", required = false) Integer seats,
-                                         Model model){
+                                         Model model, Principal principal){
+        //переменная указывающая на наличее ошибок при заполненние полей при создании нового рейса
+        boolean flagMethod = true;
+        //проверка на отсутствие названия города прибытия
+        if(finishCity.trim().isEmpty()){
+            boolean flag = true;
+            model.addAttribute("finishCityError", flag);
+            flagMethod = false;
+        }
+        //проверка на отсутствие даты и времени старта рейса
+        if(flightDeparture.isEmpty()){
+            boolean flag = true;
+            model.addAttribute("flightDepartureError", flag);
+            flagMethod = false;
+        }
+        //проверка что количество мест больше 0 и что поле количество мест not null
+        if(seats == null || seats<=0 ){
+            boolean flag = true;
+            model.addAttribute("seatsError", flag);
+            flagMethod = false;
+        }
+
+        // если есть хоть одна ошибка - возврат на страницу создания нового рейса
+        if(!flagMethod){
+            model.addAttribute("NameUser", principal.getName());
+            BusFlight busFlight = new BusFlight();
+            model.addAttribute("NewBusFlight", busFlight);
+            return "Admin/create_new_busflight";
+        }
+
+        //инициализация полей нового BusFlight
         BusFlight busFlight = new BusFlight();
         busFlight.setFinishCity(finishCity);
         //распарсить String в Date и инициализация поля flightDeparture

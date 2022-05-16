@@ -33,10 +33,12 @@ public class StartController {
             model.addAttribute("Active", active);
             return "redirect:/logout";
         }
+        //если user имеет роль admin, то показываеться ссылка на админ часть приложения
         User thisUser = userService.findByUserName(principal.getName());
         Collection<Role> roles =  thisUser.getRoles();
         Boolean flag = roles.contains(new Role(2L, "ROLE_ADMIN"));
         model.addAttribute("flag",flag);
+        model.addAttribute("NameUser", principal.getName());
         return "Start/menu";
     }
 }

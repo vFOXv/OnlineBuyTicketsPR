@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/admin/search")
 public class AdminSearchController {
@@ -35,8 +37,8 @@ public class AdminSearchController {
     //получение данных с HTML(show_all_tickets.html)
     //и поиск tickets по  users
     @PostMapping("/by_user")
-    public String searchTicketsByUser(@RequestParam("this_user") String Username, Model model){
-        model.addAttribute("ThisUser","Name user: " + userService.findByUserName(Username).getUsername());
+    public String searchTicketsByUser(@RequestParam("this_user") String Username, Model model, Principal principal){
+        model.addAttribute("NameUser",principal.getName());
         //список билетов по user
         model.addAttribute("AllTicketsByUser", ticketService.searchTicketsByUser(Username));
         //System.out.println(ticketService.searchTicketsByUser(Username));

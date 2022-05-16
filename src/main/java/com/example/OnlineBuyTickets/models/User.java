@@ -33,7 +33,7 @@ public class User {
     //если поставить анотацию - при изменении объекта падает с ошибкой(пустое поле) - а этого поля в DB нет
     //@NotEmpty(message = "String must not be empty!!!")
     private String passwordConfirm;
-    @Email
+    @Email(message = "The field must be in the format of an email address!!!")
     @NotEmpty(message = "String must not be empty!!!")
     private String email;
 

@@ -16,7 +16,11 @@
 <h3>Search Tickets By Bus Flight</h3>
 <br>
 <hr>
-<div><h3 th:text="${ThisBusFlight}"></h3></div>
+<div style="background: coral"><strong>Hello Admin </strong>
+    <ins th:text="${NameUser}"></ins>
+</div>
+<br>
+<div th:text="${ThisBusFlight}"></div>
 <br>
 <table border="1">
     <tr style="background: silver">
@@ -33,7 +37,7 @@
 <br>
 <hr>
 <br>
-<a href="/menu">Возврат в меню приложения.</a>
+<a href="/admin/menu">Возврат в админменю приложения.</a>
 <br>
 <a href="/logout">Разлогинивание</a>
 </body>

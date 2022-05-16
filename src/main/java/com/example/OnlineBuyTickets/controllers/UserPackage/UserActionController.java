@@ -9,8 +9,10 @@ import com.example.OnlineBuyTickets.services.TicketService;
 import com.example.OnlineBuyTickets.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -40,7 +42,10 @@ public class UserActionController {
         Ticket ticket = new Ticket();
         passenger.setTicket(ticket);
         //Инициализация поля BusFlight в объесте Ticket
-        passenger.getTicket().setBusFlight(busFlightService.getBusFlightById(id));
+        //passenger.getTicket().setBusFlight(busFlightService.getBusFlightById(id));
+        //инициализация объета BusFlight
+        model.addAttribute("BusFlightObj", busFlightService.getBusFlightById(id));
+
         model.addAttribute("NewPassenger", passenger);
         //список свободных мест в автобусе
         model.addAttribute("freePlaces", ticketService.searchTicketsByBusFlight(id));
@@ -51,8 +56,18 @@ public class UserActionController {
     @PostMapping("/newTicket")
     public String savePassengerAndTicketInDB(@RequestParam("place") Integer place,
                                              @RequestParam("idBusFlight") Long idBusFlight,
-                                             @ModelAttribute("NewPassenger") Passenger newPassenger,
+                                             @ModelAttribute("NewPassenger") @Valid Passenger newPassenger,
+                                             BindingResult bindingResult,
                                              Principal principal, Model model){
+
+        if (bindingResult.hasErrors()){
+            //инициализация объета BusFlight, т.к. при повторном обращении объект BusFlight = null
+            model.addAttribute("BusFlightObj", busFlightService.getBusFlightById(idBusFlight));
+            //список свободных мест в автобусе
+            model.addAttribute("freePlaces", ticketService.searchTicketsByBusFlight(idBusFlight));
+
+            return "User/buy_new_ticket";
+        }
         //инициализация полей пассажира (ticket and busFlight)
         Ticket ticket = new Ticket();
         BusFlight busFlight = new BusFlight();

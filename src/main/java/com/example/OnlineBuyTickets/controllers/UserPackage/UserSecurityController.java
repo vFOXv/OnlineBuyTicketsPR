@@ -32,18 +32,29 @@ public class UserSecurityController {
     @PostMapping("/create/newUser")
     public String createNewUserDB(@ModelAttribute("NewUser") @Valid User newUser,
                                   BindingResult bindingResult, Model model) {
-        System.out.println("--------------------------->"+newUser);
-        if (bindingResult.hasErrors()){
-            return "Security/create_new_user";
+        //переменная указывающая на наличее ошибок при заполненние полей регистрации нового юзера
+        boolean flagMethod = true;
+        //проверка на наличее в DB user с подобным Username
+        if (!userService.checkNewUsername(newUser)){
+            boolean flag = true;
+            model.addAttribute("usernameError", flag);
+            flagMethod = false;
         }
+        //проверка на правильность пароля(пароль и его повторения в окошке ниже)
         if (!newUser.getPassword().equals(newUser.getPasswordConfirm())){
-            model.addAttribute("passwordError", "Passwords not equals!!!");
+            boolean flag = true;
+            model.addAttribute("passwordError", flag);
+            flagMethod = false;
+        }
+        if (bindingResult.hasErrors()){
+            flagMethod = false;
+        }
+        // если есть хоть одна ошибка - возврат на страницу регистрации
+        if(flagMethod){
+            userService.saveNewUser(newUser);
+            return "Security/login";
+        }else{
             return "Security/create_new_user";
         }
-        if (!userService.saveNewUser(newUser)){
-            model.addAttribute("usernameError", "User with the same name already exists!!! ");
-            return "Security/create_new_user";
-        }
-        return "redirect:/admin/show/allUsers";
     }
 }

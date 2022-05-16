@@ -90,13 +90,4 @@ public class TicketService {
             busFlightService.saveNewBusFlight(bus);
         }
     }
-
-    //создание флага на случай если все места в автобусе заняты(freeSeats = 0)
-//    public boolean flagNotFreeSeats(Long id){
-//        if(busFlightService.getBusFlightById(id).getSeats() == busFlightService.getBusFlightById(id).getFreeSeats()){
-//            return false;
-//        }else{
-//            return true;
-//        }
-//    }
 }

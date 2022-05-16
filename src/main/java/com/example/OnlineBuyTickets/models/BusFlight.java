@@ -3,8 +3,6 @@ package com.example.OnlineBuyTickets.models;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,7 +24,6 @@ public class BusFlight {
     private String finishCity;
 
     //Время и дата отправления со станции
-    @DateTimeFormat(style = "yyyy.MM.dd HH:mm")
     @Column(name = "flight_departure")
     private Date flightDeparture;
 
@@ -34,6 +31,7 @@ public class BusFlight {
     private Integer seats;
 
     //количество свободных мест в атобусе
+    @Column(name = "free_seats")
     private Integer freeSeats;
 
     //метод позволяющий из строки(получаемой из HTML (создание/изменение объекта))

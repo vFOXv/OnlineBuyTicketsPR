@@ -5,11 +5,15 @@
     <title>Create New User</title>
 </head>
 <body style="background: silver">
+<br>
+<h3 style="color:red"><strong>Enter text in the form in English only!!!</strong></h3>
+<br>
 <form method="post" th:action="@{/security/create/newUser}" th:object="${NewUser}">
 <table>
     <tr>
         <td>Enter your name:</td>
         <td><input type="text" th:field="*{username}" th:value="*{username}"/></td>
+        <td th:if="${usernameError}" style="color:red">User with the same name already exists!!!</td>
         <td style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
     </tr>
     <tr>
@@ -20,6 +24,7 @@
     <tr>
         <td>Enter your password again:</td>
         <td><input type="password" th:field="*{passwordConfirm}" th:value="*{passwordConfirm}"/></td>
+        <td th:if="${passwordError}" style="color:red">Passwords not equals!!!</td>
         <td style="color:red" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></td>
     </tr>
     <tr>

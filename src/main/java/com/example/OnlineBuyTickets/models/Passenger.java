@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -18,8 +19,12 @@ public class Passenger {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min = 2, message = "Name min 2 char!!!")
+    @NotEmpty(message = "String must not be empty!!!")
     private String lastname;
 
+    @Size(min = 2, message = "Name min 2 char!!!")
+    @NotEmpty(message = "String must not be empty!!!")
     private String name;
 
     @OneToOne (cascade=CascadeType.MERGE)
