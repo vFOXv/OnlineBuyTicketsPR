@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Show Tickets By User</title>
@@ -36,8 +36,8 @@
             <td th:text="${ticket.id}"></td>
             <td th:text="${ticket.busFlight.myShow}"></td>
             <td th:text="${ticket.passenger.lastname}"></td>
-            <td th:text="${ticket.passenger.name}"></td>
-            <td th:text="${ticket.user.Username}"></td>
+            <td th:text="${ticket.passenger.lastname}"></td>
+            <td th:text="${ticket.user.username}"></td>
             <td><a th:href="@{/user/action/ticket/{id}(id=${ticket.getId()})}" th:text="${ThisTicket}"></a></td>
         </tr>
 </table>
